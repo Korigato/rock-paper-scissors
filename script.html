@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function computerMove() {
+            let a = Math.random();
+            if (0.33 > a) {
+                return 'Scissors';
+            } else if (0.33 <= a && a < 0.66) {
+                return 'Paper';
+            } else if (0.66 <= a && a < 1) {
+                return 'Rock';
+            }
+        }
+        function playGame() {
+            let playerMove = prompt('What is your move ?').toLowerCase();
+            let compSel = computerMove();
+            if ((playerMove == 'scissors' && compSel == 'Scissors') || (playerMove == 'paper' && compSel == 'Paper') || (playerMove == 'rock' && compSel == 'Rock')) {
+                return 'Tie';
+            } else if ((playerMove == 'scissors' && compSel == 'Paper') || (playerMove == 'paper' && compSel == 'Rock') || (playerMove == 'rock' && compSel == 'Scissors')) {
+                return 'You win';
+            } else if ((playerMove == 'scissors' && compSel == 'Rock') || (playerMove == 'paper' && compSel == 'Scissors') || (playerMove == 'rock' && compSel == 'Paper')) {
+                return 'You lose';
+            }
+        }
+        function score(win, lose) {
+            let result = playGame(); 
+            if (result === 'Tie') {    
+                console.log('Its a tie');
+            } else if (result === 'You win') {
+                win++;
+                console.log('Wins:', win, 'Losses' , lose);
+            } else if (result === 'You lose') {
+                lose++;
+                console.log('Wins:', win, 'Losses' , lose);
+            }
+            return { win, lose }; // Return the updated values of win and lose
+        }
+
+        let wins = 0;
+        let losses = 0;
+
+        // Play multiple rounds
+        for (let i = 0; i < 500; i++) {
+            const { win, lose } = score(wins, losses); // Update win and lose variables with returned values
+            wins = win;
+            losses = lose;
+        }
+    </script>
+</body>
+</html>
